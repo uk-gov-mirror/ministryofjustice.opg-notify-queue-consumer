@@ -13,6 +13,8 @@ services:
 
   test:
     image: opg-notify-queue-consumer_php:latest
+    volumes:
+      - .:/var/www
     command:
       - "./vendor/bin/phpunit"
       - "--configuration=phpunit.xml"
@@ -21,6 +23,8 @@ services:
 
   phpstan:
     image: opg-notify-queue-consumer_php:latest
+    volumes:
+      - .:/var/www
     command:
       - "./vendor/bin/phpstan"
       - "analyse"
