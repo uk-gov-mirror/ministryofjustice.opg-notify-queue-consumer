@@ -42,3 +42,12 @@ services:
       - --warning-severity=0
       - ./src
       - ./public
+
+  localstack:
+    image: localstack/localstack:0.10.5
+    environment:
+      DEFAULT_REGION: eu-west-1
+      HOSTNAME_EXTERNAL: localstack
+      SERVICES: sqs
+    volumes:
+      - "./scripts/localstack:/docker-entrypoint-initaws.d"
