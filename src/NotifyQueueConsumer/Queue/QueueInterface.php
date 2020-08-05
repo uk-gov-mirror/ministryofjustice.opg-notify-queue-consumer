@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace NotifyQueueConsumer\Queue;
 
 use Exception;
-use NotifyQueueConsumer\Command\Model\SendToNotify;
 
 interface QueueInterface
 {
     /**
      * @throws Exception
-     * @return SendToNotify|null
+     * @return array|null
      */
-    public function next(): ?SendToNotify;
+    public function next(): ?array;
 
     /**
      * @throws Exception
-     * @param SendToNotify $command
+     * @param string $id
      */
-    public function delete(SendToNotify $command): void;
+    public function delete(string $id): void;
 }

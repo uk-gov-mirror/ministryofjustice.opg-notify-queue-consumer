@@ -6,6 +6,8 @@ namespace NotifyQueueConsumer\Queue;
 
 use Exception;
 use NotifyQueueConsumer\Command\Handler\UpdateDocumentStatusHandler;
+use NotifyQueueConsumer\Command\Model\SendToNotify;
+use NotifyQueueConsumer\Command\Model\UpdateDocumentStatus;
 use Throwable;
 use Psr\Log\LoggerInterface;
 use NotifyQueueConsumer\Command\Handler\SendToNotifyHandler;
@@ -48,6 +50,8 @@ class Consumer
                 return;
             }
 
+            $sendToNotifyCommand = new SendToNotify($sendToNotifyCommand);
+
             $logExtras = array_merge(
                 $logExtras,
                 ['id' => $sendToNotifyCommand->getId(), 'uuid' => $sendToNotifyCommand->getUuid()]
@@ -56,13 +60,13 @@ class Consumer
             $updateDocumentStatusCommand = $this->sendToNotifyHandler->handle($sendToNotifyCommand);
 
             $this->logger->info('Deleting processed message', $logExtras);
-            $this->queue->delete($sendToNotifyCommand);
+            $this->queue->delete($sendToNotifyCommand->getId());
 
             $this->logger->info('Updating document status', $logExtras);
-            $this->updateDocumentStatusHandler->handle($updateDocumentStatusCommand);
+            $this->updateDocumentStatusHandler->handle(new UpdateDocumentStatus($updateDocumentStatusCommand));
         } catch (DuplicateMessageException $e) {
             $this->logger->info('Deleting duplicate message', $logExtras);
-            $this->queue->delete($sendToNotifyCommand);
+            $this->queue->delete($sendToNotifyCommand->getId());
         } catch (Throwable $e) {
             $logExtras = array_merge($logExtras, ['error' => (string)$e, 'trace' => $e->getTraceAsString()]);
             $this->logger->critical('Error processing message', $logExtras);

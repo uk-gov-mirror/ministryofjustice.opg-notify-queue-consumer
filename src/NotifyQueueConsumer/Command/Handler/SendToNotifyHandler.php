@@ -8,7 +8,6 @@ use Alphagov\Notifications\Client;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use NotifyQueueConsumer\Command\Model\SendToNotify;
-use NotifyQueueConsumer\Command\Model\UpdateDocumentStatus;
 use NotifyQueueConsumer\Queue\DuplicateMessageException;
 use UnexpectedValueException;
 
@@ -25,10 +24,10 @@ class SendToNotifyHandler
 
     /**
      * @param SendToNotify $sendToNotifyCommand
-     * @return UpdateDocumentStatus
+     * @return array
      * @throws FileNotFoundException
      */
-    public function handle(SendToNotify $sendToNotifyCommand): UpdateDocumentStatus
+    public function handle(SendToNotify $sendToNotifyCommand): array
     {
         // 1. Check if message exists using our reference - Notify doesn't ignore duplicates!
         // https://docs.notifications.service.gov.uk/php.html#get-the-status-of-multiple-messages
@@ -48,11 +47,11 @@ class SendToNotifyHandler
         list('id' => $notifyId, 'status' => $notifyStatus)
             = $this->sendToNotify($sendToNotifyCommand->getUuid(), $contents);
 
-        return UpdateDocumentStatus::fromArray([
+        return [
             'notifyId' => $notifyId,
             'notifyStatus' => $notifyStatus,
             'documentId' => $sendToNotifyCommand->getDocumentId(),
-        ]);
+        ];
     }
 
     /**

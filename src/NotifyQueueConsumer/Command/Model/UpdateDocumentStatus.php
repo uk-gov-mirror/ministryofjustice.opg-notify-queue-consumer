@@ -4,45 +4,24 @@ declare(strict_types=1);
 
 namespace NotifyQueueConsumer\Command\Model;
 
+use InvalidArgumentException;
+
 class UpdateDocumentStatus
 {
     protected int $documentId;
     protected string $notifyId;
     protected string $notifyStatus;
 
-    private function __construct()
-    {
-    }
-
     /**
      * @param array<string,mixed> $data
-     * @return self
      */
-    public static function fromArray(array $data): self
+    public function __construct(array $data)
     {
-        AggregateValidationException::clearInstance();
+        $this->validate($data);
 
-        if (empty($data['documentId']) || !is_numeric($data['documentId'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a numeric documentId');
-        }
-
-        if (empty($data['notifyId'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a notifyId');
-        }
-
-        if (empty($data['notifyStatus'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a notifyStatus');
-        }
-
-        AggregateValidationException::checkAndThrow();
-
-        $instance = new self();
-
-        $instance->documentId = (int)$data['documentId'];
-        $instance->notifyId = $data['notifyId'];
-        $instance->notifyStatus = $data['notifyStatus'];
-
-        return $instance;
+        $this->documentId = (int)$data['documentId'];
+        $this->notifyId = $data['notifyId'];
+        $this->notifyStatus = $data['notifyStatus'];
     }
 
     public function getDocumentId(): int
@@ -58,5 +37,29 @@ class UpdateDocumentStatus
     public function getNotifyStatus(): string
     {
         return $this->notifyStatus;
+    }
+
+    /**
+     * @param array $data
+     */
+    private function validate(array &$data): void
+    {
+        $errors = [];
+
+        if (empty($data['documentId']) || !is_numeric($data['documentId'])) {
+            $errors[] = 'Data doesn\'t contain a numeric documentId';
+        }
+
+        if (empty($data['notifyId'])) {
+            $errors[] = 'Data doesn\'t contain a notifyId';
+        }
+
+        if (empty($data['notifyStatus'])) {
+            $errors[] = 'Data doesn\'t contain a notifyStatus';
+        }
+
+        if (!empty($errors)) {
+            throw new InvalidArgumentException(implode(', ', $errors));
+        }
     }
 }

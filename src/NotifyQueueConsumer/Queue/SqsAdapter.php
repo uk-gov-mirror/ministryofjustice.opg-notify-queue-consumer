@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace NotifyQueueConsumer\Queue;
 
 use Aws\Sqs\SqsClient;
-use NotifyQueueConsumer\Command\Model\SendToNotify;
 use UnexpectedValueException;
 
 class SqsAdapter implements QueueInterface
@@ -19,7 +18,7 @@ class SqsAdapter implements QueueInterface
         $this->queueUrl = $queueUrl;
     }
 
-    public function next(): ?SendToNotify
+    public function next(): ?array
     {
         $result = $this->client->receiveMessage([
             'AttributeNames' => ['SentTimestamp'],
@@ -39,20 +38,20 @@ class SqsAdapter implements QueueInterface
 
         $this->validateBody($body);
 
-        return SendToNotify::fromArray([
+        return [
             'id' => $raw['ReceiptHandle'],
             'uuid' => $body['uuid'],
             'filename' => $body['filename'],
             'documentId' => $body['documentId'],
-        ]);
+        ];
     }
 
-    public function delete(SendToNotify $command): void
+    public function delete(string $id): void
     {
         // See https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-sqs-2012-11-05.html#deletemessage
         $this->client->deleteMessage([
             'QueueUrl' => $this->queueUrl,
-            'ReceiptHandle' => $command->getId(),
+            'ReceiptHandle' => $id,
         ]);
     }
 

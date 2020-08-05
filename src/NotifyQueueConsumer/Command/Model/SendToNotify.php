@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace NotifyQueueConsumer\Command\Model;
 
+use InvalidArgumentException;
+
 class SendToNotify
 {
     protected string $id;
@@ -11,43 +13,17 @@ class SendToNotify
     protected string $filename;
     protected int $documentId;
 
-    private function __construct()
-    {
-    }
-
     /**
      * @param array<string,string> $data
-     * @return self
      */
-    public static function fromArray(array $data): self
+    public function __construct(array $data)
     {
-        AggregateValidationException::clearInstance();
+        $this->validate($data);
 
-        if (empty($data['id'])) {
-            AggregateValidationException::addError('Data doesn\'t contain an id');
-        }
-
-        if (empty($data['uuid'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a uuid');
-        }
-
-        if (empty($data['filename'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a filename');
-        }
-
-        if (empty($data['documentId']) || !is_numeric($data['documentId'])) {
-            AggregateValidationException::addError('Data doesn\'t contain a numeric documentId');
-        }
-
-        AggregateValidationException::checkAndThrow();
-
-        $instance = new self();
-        $instance->id = $data['id'];
-        $instance->uuid = $data['uuid'];
-        $instance->filename = $data['filename'];
-        $instance->documentId = (int)$data['documentId'];
-
-        return $instance;
+        $this->id = $data['id'];
+        $this->uuid = $data['uuid'];
+        $this->filename = $data['filename'];
+        $this->documentId = (int)$data['documentId'];
     }
 
     public function getId(): string
@@ -68,5 +44,33 @@ class SendToNotify
     public function getDocumentId(): int
     {
         return $this->documentId;
+    }
+
+    /**
+     * @param array $data
+     */
+    private function validate(array &$data): void
+    {
+        $errors = [];
+
+        if (empty($data['id'])) {
+            $errors[] = 'Data doesn\'t contain an id';
+        }
+
+        if (empty($data['uuid'])) {
+            $errors[] = 'Data doesn\'t contain a uuid';
+        }
+
+        if (empty($data['filename'])) {
+            $errors[] = 'Data doesn\'t contain a filename';
+        }
+
+        if (empty($data['documentId']) || !is_numeric($data['documentId'])) {
+            $errors[] = 'Data doesn\'t contain a numeric documentId';
+        }
+
+        if (!empty($errors)) {
+            throw new InvalidArgumentException(implode(', ', $errors));
+        }
     }
 }
