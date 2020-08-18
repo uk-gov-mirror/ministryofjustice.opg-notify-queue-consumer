@@ -18,6 +18,7 @@ class SqsAdapterTest extends TestCase
 
     public function setUp(): void
     {
+        // These services are defined in src/bootstrap/services.php and are included in tests/bootstrap.php
         global $awsSqsClient;
 
         parent::setUp();
@@ -66,7 +67,6 @@ class SqsAdapterTest extends TestCase
 
     /**
      * @throws Exception
-     * @depends testRetrieveMessage
      */
     public function testDeleteMessage()
     {
