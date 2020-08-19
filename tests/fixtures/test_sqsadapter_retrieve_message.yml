@@ -1,0 +1,211 @@
+
+-
+    request:
+        method: POST
+        url: 'http://localstack:4576'
+        headers:
+            Host: 'localstack:4576'
+            Expect: ''
+            Accept-Encoding: ''
+            Content-Type: application/x-www-form-urlencoded
+            aws-sdk-invocation-id: e8c18cf949c461be3d1211726cde2de7
+            aws-sdk-retry: 0/0
+            X-Amz-Date: 20200819T093944Z
+            Authorization: 'AWS4-HMAC-SHA256 Credential=localstack/20200819/eu-west-1/sqs/aws4_request, SignedHeaders=host;x-amz-date, Signature=e29d53d0afba03b97916801ce2ca5fbca8ba403b4e7b825310e0753106762c2e'
+            User-Agent: 'aws-sdk-php/3.147.13 GuzzleHttp/7'
+            Accept: ''
+        body: 'Action=CreateQueue&Version=2012-11-05&QueueName=v001_queue_test_sqsadapter_retrieve_message&Attribute.1.Name=VisibilityTimeout&Attribute.1.Value=0&Attribute.2.Name=ReceiveMessageWaitTimeSeconds&Attribute.2.Value=0'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: 'BaseHTTP/0.6 Python/3.6.9'
+            Date: 'Wed, 19 Aug 2020 09:39:44 GMT'
+            Connection: close
+            Content-Type: 'text/plain; charset=UTF-8'
+            content-length: '457'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Methods: 'HEAD,GET,PUT,POST,DELETE,OPTIONS,PATCH'
+            Access-Control-Allow-Headers: 'authorization,content-type,content-md5,cache-control,x-amz-content-sha256,x-amz-date,x-amz-security-token,x-amz-user-agent,x-amz-target,x-amz-acl,x-amz-version-id,x-localstack-target,x-amz-tagging'
+            Access-Control-Expose-Headers: x-amz-version-id
+        body: "<CreateQueueResponse xmlns=\"http://queue.amazonaws.com/doc/2012-11-05/\">\n                  <CreateQueueResult>\n                    <QueueUrl>http://localstack:4576/queue/v001_queue_test_sqsadapter_retrieve_message</QueueUrl>\n                  </CreateQueueResult>\n                  <ResponseMetadata>\n                    <RequestId>00000000-0000-0000-0000-000000000000</RequestId>\n                  </ResponseMetadata>\n                </CreateQueueResponse>"
+        curl_info:
+            url: 'http://localstack:4576/'
+            content_type: 'text/plain; charset=UTF-8'
+            http_code: 200
+            header_size: 551
+            request_size: 677
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.010873
+            namelookup_time: 0.000805
+            connect_time: 0.001038
+            pretransfer_time: 0.001097
+            size_upload: !!float 213
+            size_download: !!float 457
+            speed_download: !!float 45700
+            speed_upload: !!float 21300
+            download_content_length: !!float 457
+            upload_content_length: !!float 213
+            starttransfer_time: 0.010825
+            redirect_time: !!float 0
+            redirect_url: ''
+            primary_ip: 172.20.0.2
+            certinfo: {  }
+            primary_port: 4576
+            local_ip: 172.20.0.3
+            local_port: 52510
+            http_version: 2
+            protocol: 1
+            ssl_verifyresult: 0
+            scheme: HTTP
+            appconnect_time_us: 0
+            connect_time_us: 1038
+            namelookup_time_us: 805
+            pretransfer_time_us: 1097
+            redirect_time_us: 0
+            starttransfer_time_us: 10825
+            total_time_us: 10873
+-
+    request:
+        method: POST
+        url: 'http://localstack:4576/queue/v001_queue_test_sqsadapter_retrieve_message'
+        headers:
+            Host: 'localstack:4576'
+            Expect: ''
+            Accept-Encoding: ''
+            Content-Type: application/x-www-form-urlencoded
+            aws-sdk-invocation-id: 6ac060cc2d1d11a015458d1aa0eb4c8c
+            aws-sdk-retry: 0/0
+            X-Amz-Date: 20200819T093944Z
+            Authorization: 'AWS4-HMAC-SHA256 Credential=localstack/20200819/eu-west-1/sqs/aws4_request, SignedHeaders=host;x-amz-date, Signature=529bf91d275851bd614353c3d4a5caee92ded05020ce54fd9d1fe00904b1fc68'
+            User-Agent: 'aws-sdk-php/3.147.13 GuzzleHttp/7'
+            Accept: ''
+        body: 'Action=SendMessage&Version=2012-11-05&QueueUrl=http%3A%2F%2Flocalstack%3A4576%2Fqueue%2Fv001_queue_test_sqsadapter_retrieve_message&MessageBody=%7B%22uuid%22%3A%2213%22%2C%22filename%22%3A%22some_file_70.pdf%22%2C%22documentId%22%3A%22184%22%7D'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: 'BaseHTTP/0.6 Python/3.6.9'
+            Date: 'Wed, 19 Aug 2020 09:39:44 GMT'
+            Connection: close
+            Content-Type: 'text/plain; charset=UTF-8'
+            Content-Length: '579'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Methods: 'HEAD,GET,PUT,POST,DELETE,OPTIONS,PATCH'
+            Access-Control-Allow-Headers: 'authorization,content-type,content-md5,cache-control,x-amz-content-sha256,x-amz-date,x-amz-security-token,x-amz-user-agent,x-amz-target,x-amz-acl,x-amz-version-id,x-localstack-target,x-amz-tagging'
+            Access-Control-Expose-Headers: x-amz-version-id
+        body: "<SendMessageResponse xmlns=\"http://queue.amazonaws.com/doc/2012-11-05/\">\n              <SendMessageResult>\n                <MD5OfMessageAttributes>d41d8cd98f00b204e9800998ecf8427e</MD5OfMessageAttributes>\n                <MD5OfMessageBody>922bef81431c7d9248473cf06f0faca9</MD5OfMessageBody>\n                <MessageId>6db282d1-d86b-493e-b12e-ab55a4e88c71</MessageId>\n              </SendMessageResult>\n              <ResponseMetadata>\n                <RequestId>00000000-0000-0000-0000-000000000000</RequestId>\n              </ResponseMetadata>\n            </SendMessageResponse>"
+        curl_info:
+            url: 'http://localstack:4576/queue/v001_queue_test_sqsadapter_retrieve_message'
+            content_type: 'text/plain; charset=UTF-8'
+            http_code: 200
+            header_size: 551
+            request_size: 757
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.010718
+            namelookup_time: 0.000993
+            connect_time: 0.001276
+            pretransfer_time: 0.00134
+            size_upload: !!float 244
+            size_download: !!float 579
+            speed_download: !!float 57900
+            speed_upload: !!float 24400
+            download_content_length: !!float 579
+            upload_content_length: !!float 244
+            starttransfer_time: 0.010671
+            redirect_time: !!float 0
+            redirect_url: ''
+            primary_ip: 172.20.0.2
+            certinfo: {  }
+            primary_port: 4576
+            local_ip: 172.20.0.3
+            local_port: 52514
+            http_version: 2
+            protocol: 1
+            ssl_verifyresult: 0
+            scheme: HTTP
+            appconnect_time_us: 0
+            connect_time_us: 1276
+            namelookup_time_us: 993
+            pretransfer_time_us: 1340
+            redirect_time_us: 0
+            starttransfer_time_us: 10671
+            total_time_us: 10718
+-
+    request:
+        method: POST
+        url: 'http://localstack:4576/queue/v001_queue_test_sqsadapter_retrieve_message'
+        headers:
+            Host: 'localstack:4576'
+            Expect: ''
+            Accept-Encoding: ''
+            Content-Type: application/x-www-form-urlencoded
+            aws-sdk-invocation-id: e6c641c2674b9df5be129ad08bf5fd83
+            aws-sdk-retry: 0/0
+            X-Amz-Date: 20200819T093944Z
+            Authorization: 'AWS4-HMAC-SHA256 Credential=localstack/20200819/eu-west-1/sqs/aws4_request, SignedHeaders=host;x-amz-date, Signature=b20dc64a383e1c2725d29a7faf5c70a84411d03cf6d381d284eb2325f3cf82da'
+            User-Agent: 'aws-sdk-php/3.147.13 GuzzleHttp/7'
+            Accept: ''
+        body: 'Action=ReceiveMessage&Version=2012-11-05&AttributeName.1=SentTimestamp&MaxNumberOfMessages=1&MessageAttributeName.1=All&QueueUrl=http%3A%2F%2Flocalstack%3A4576%2Fqueue%2Fv001_queue_test_sqsadapter_retrieve_message&WaitTimeSeconds=0'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Server: 'BaseHTTP/0.6 Python/3.6.9'
+            Date: 'Wed, 19 Aug 2020 09:39:44 GMT'
+            Connection: close
+            Content-Type: 'text/plain; charset=UTF-8'
+            Content-Length: '978'
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Methods: 'HEAD,GET,PUT,POST,DELETE,OPTIONS,PATCH'
+            Access-Control-Allow-Headers: 'authorization,content-type,content-md5,cache-control,x-amz-content-sha256,x-amz-date,x-amz-security-token,x-amz-user-agent,x-amz-target,x-amz-acl,x-amz-version-id,x-localstack-target,x-amz-tagging'
+            Access-Control-Expose-Headers: x-amz-version-id
+        body: "<ReceiveMessageResponse xmlns=\"http://queue.amazonaws.com/doc/2012-11-05/\">\n              <ReceiveMessageResult>\n                <Message>\n                  <MessageId>6db282d1-d86b-493e-b12e-ab55a4e88c71</MessageId>\n                  <ReceiptHandle>6db282d1-d86b-493e-b12e-ab55a4e88c71#77a668fc-0a1e-4bae-baaf-38f9645eca22</ReceiptHandle>\n                  <MD5OfBody>922bef81431c7d9248473cf06f0faca9</MD5OfBody>\n                  <Body>{&quot;uuid&quot;:&quot;13&quot;,&quot;filename&quot;:&quot;some_file_70.pdf&quot;,&quot;documentId&quot;:&quot;184&quot;}</Body>\n                  <Attribute>\n          <Name>SentTimestamp</Name>\n          <Value>1597829984271</Value>\n        </Attribute>\n                  \n                  \n                </Message>\n              </ReceiveMessageResult>\n              <ResponseMetadata>\n                <RequestId>00000000-0000-0000-0000-000000000000</RequestId>\n              </ResponseMetadata>\n            </ReceiveMessageResponse>"
+        curl_info:
+            url: 'http://localstack:4576/queue/v001_queue_test_sqsadapter_retrieve_message'
+            content_type: 'text/plain; charset=UTF-8'
+            http_code: 200
+            header_size: 551
+            request_size: 744
+            filetime: -1
+            ssl_verify_result: 0
+            redirect_count: 0
+            total_time: 0.008894
+            namelookup_time: 0.000752
+            connect_time: 0.000928
+            pretransfer_time: 0.00106
+            size_upload: !!float 231
+            size_download: !!float 978
+            speed_download: !!float 122250
+            speed_upload: !!float 28875
+            download_content_length: !!float 978
+            upload_content_length: !!float 231
+            starttransfer_time: 0.008843
+            redirect_time: !!float 0
+            redirect_url: ''
+            primary_ip: 172.20.0.2
+            certinfo: {  }
+            primary_port: 4576
+            local_ip: 172.20.0.3
+            local_port: 52518
+            http_version: 2
+            protocol: 1
+            ssl_verifyresult: 0
+            scheme: HTTP
+            appconnect_time_us: 0
+            connect_time_us: 928
+            namelookup_time_us: 752
+            pretransfer_time_us: 1060
+            redirect_time_us: 0
+            starttransfer_time_us: 8843
+            total_time_us: 8894
