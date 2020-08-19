@@ -41,11 +41,11 @@ class SendToNotifyHandlerTest extends TestCase
      */
     public function testHandleSuccess(): void
     {
-        VCR::insertCassette('test_handle_success.yml');
+        VCR::insertCassette('test_sendtonotifyhandler_handle_success.yml');
         $content = file_get_contents(self::TEST_FILE_PATH);
         $destination = basename(self::TEST_FILE_PATH);
-        $this->filesystem->put($destination, $content);
 
+        $this->filesystem->put($destination, $content);
 
         $command = SendToNotify::fromArray(
             [
@@ -71,7 +71,7 @@ class SendToNotifyHandlerTest extends TestCase
     {
         self::expectException(DuplicateMessageException::class);
 
-        VCR::insertCassette('test_duplicate_uuid_throws_exception_failure.yml');
+        VCR::insertCassette('test_sendtonotifyhandler_duplicate_uuid_throws_exception_failure.yml');
         $content = file_get_contents(self::TEST_FILE_PATH);
         $destination = basename(self::TEST_FILE_PATH);
         $this->filesystem->put($destination, $content);

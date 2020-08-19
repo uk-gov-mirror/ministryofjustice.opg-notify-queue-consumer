@@ -13,7 +13,7 @@ $functionalTestSupport = getenv('OPG_NOTIFY_API_KEY') !== false;
 
 if ($functionalTestSupport) {
     VCR::configure()->enableLibraryHooks(['stream_wrapper', 'curl']);
-    VCR::configure()->enableRequestMatchers(['method', 'url', 'host', 'query_string', 'post_fields']);
+    VCR::configure()->enableRequestMatchers(['method', 'url', 'host', 'query_string', 'post_fields', 'body']);
     VCR::turnOn();
     VCR::turnOff();
 
