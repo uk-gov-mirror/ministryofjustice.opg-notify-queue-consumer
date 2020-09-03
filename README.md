@@ -12,6 +12,10 @@ updates Sirius with status.
     
     # Update the local.env file with any secret credentials when testing external services
     docker-compose build consumer
+    
+Check health status
+
+    docker inspect --format "{{json .State.Health }}" notify-queue-consumer_consumer_1
 
 ### Running
 
